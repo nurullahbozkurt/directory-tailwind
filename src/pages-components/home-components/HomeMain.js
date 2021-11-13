@@ -4,7 +4,7 @@ import React from "react";
 import Card from "./Card";
 
 function HomeMain() {
-  const { state, test, value } = useContext(DirectoryContext);
+  const { test, value } = useContext(DirectoryContext);
 
   return (
     <div className="main">
