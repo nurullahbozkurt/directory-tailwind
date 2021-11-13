@@ -6,6 +6,16 @@ import Card from "./Card";
 function HomeMain() {
   const { test, value } = useContext(DirectoryContext);
 
+  if (test.length === 0) {
+    return (
+      <>
+        <div className="flex justify-center items-center">
+          <img src="/loading2.gif" alt=""></img>
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="main">
       <div className="flex items-center justify-center">
