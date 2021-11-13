@@ -16,7 +16,21 @@ function ContextProvider(props) {
     getYelpApi();
   }, []);
   useEffect(() => {
-    getSearch();
+    (async () => {
+      const response = await axios.get(
+        `${apiHack}https://api.yelp.com/v3/businesses/search?limit=50&location=istanbul&term=${value}`,
+        {
+          headers: {
+            Authorization: `Bearer ${yelpToken}`,
+            "Content-Type": "application/json",
+            "x-requested-with": "xmlhttprequest",
+            "Access-Control-Allow-Origin": "*",
+          },
+          params: {},
+        }
+      );
+      setTerm(response.data.businesses);
+    })();
   }, [value]);
   const test = useMemo(() => {
     return term ? term : state;
@@ -44,21 +58,7 @@ function ContextProvider(props) {
     //setValue(e.target.value);
     setValue(e.target.previousElementSibling.value);
   };
-  const getSearch = async () => {
-    const response = await axios.get(
-      `${apiHack}https://api.yelp.com/v3/businesses/search?limit=50&location=istanbul&term=${value}`,
-      {
-        headers: {
-          Authorization: `Bearer ${yelpToken}`,
-          "Content-Type": "application/json",
-          "x-requested-with": "xmlhttprequest",
-          "Access-Control-Allow-Origin": "*",
-        },
-        params: {},
-      }
-    );
-    setTerm(response.data.businesses);
-  };
+
   // console.log("term", term);
   // console.log("state", state);
   console.log("valu", value);
